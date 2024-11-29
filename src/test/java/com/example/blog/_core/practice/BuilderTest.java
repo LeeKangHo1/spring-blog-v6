@@ -7,7 +7,6 @@ class Member {
     private String name;
     private String addr;
 
-    // TODO 기본 생성자 막는 이유
     private Member() {
     }
 

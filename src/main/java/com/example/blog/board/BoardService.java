@@ -34,6 +34,7 @@ public class BoardService {
 
     @Transactional
     public void 게시글쓰기(BoardRequest.SaveDTO saveDTO) {
+
         boardRepository.save(saveDTO.toEntity());
     }
 
