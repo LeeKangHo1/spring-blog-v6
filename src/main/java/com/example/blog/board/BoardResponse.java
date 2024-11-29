@@ -1,6 +1,7 @@
 package com.example.blog.board;
 
 import com.example.blog._core.util.MyDate;
+import com.example.blog.user.User;
 import lombok.Data;
 
 public class BoardResponse {
@@ -29,19 +30,18 @@ public class BoardResponse {
 
         private Integer userId;
         private String username;
+        private boolean isOwner = false;
 
-        public DetailDTO(Board board) {
+        public DetailDTO(Board board, User sessionUser) {
             this.id = board.getId();
             this.title = board.getTitle();
             this.content = board.getContent();
             this.createdAt = MyDate.formatToStr(board.getCreatedAt());
-
-            System.out.println("레이지 로딩 전");
-            // 여기서 lazy loading 되는지 확인
             this.userId = board.getUser().getId();
-            System.out.println("레이지 로딩 전인가?");
             this.username = board.getUser().getUsername();
-            System.out.println("레이지 로딩 후");
+            if (sessionUser != null) {
+                this.isOwner = sessionUser.getUsername().equals(board.getUser().getUsername());
+            }
         }
     }
 
