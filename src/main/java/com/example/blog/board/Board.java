@@ -19,7 +19,7 @@ public class Board {
     private String content;
 
     // private Integer userId; // 여기선 카멜, db에선 user_id로 들어간다. 외래키
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @CreationTimestamp

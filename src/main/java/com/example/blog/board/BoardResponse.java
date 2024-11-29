@@ -27,11 +27,21 @@ public class BoardResponse {
         private String content;
         private String createdAt;
 
+        private Integer userId;
+        private String username;
+
         public DetailDTO(Board board) {
             this.id = board.getId();
             this.title = board.getTitle();
             this.content = board.getContent();
             this.createdAt = MyDate.formatToStr(board.getCreatedAt());
+
+            System.out.println("레이지 로딩 전");
+            // 여기서 lazy loading 되는지 확인
+            this.userId = board.getUser().getId();
+            System.out.println("레이지 로딩 전인가?");
+            this.username = board.getUser().getUsername();
+            System.out.println("레이지 로딩 후");
         }
     }
 

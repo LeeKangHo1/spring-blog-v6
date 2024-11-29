@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class BoardService {
@@ -34,7 +35,6 @@ public class BoardService {
 
     @Transactional
     public void 게시글쓰기(BoardRequest.SaveDTO saveDTO) {
-
         boardRepository.save(saveDTO.toEntity());
     }
 

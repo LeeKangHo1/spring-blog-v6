@@ -21,7 +21,7 @@ public class BoardRepository {
     }
 
     public void save(Board board){
-        // 비영속
+        // board는 비영속 상태
         em.persist(board);
         // 동기화 완료 (영속화됨)
     }

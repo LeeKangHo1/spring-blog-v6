@@ -24,6 +24,7 @@ public class UserRepository {
         }
     }
 
+    // 회원가입
     public void userSave(User user) {
         em.persist(user);
     }

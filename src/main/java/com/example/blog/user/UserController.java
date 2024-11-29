@@ -42,6 +42,7 @@ public class UserController {
         return "user/join-form";
     }
 
+    // 회원 가입
     @PostMapping("/join")
     public String join(UserRequest.JoinDTO joinDTO) {
         userService.join(joinDTO);
