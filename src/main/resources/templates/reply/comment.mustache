@@ -1,0 +1,24 @@
+{{> layout/header}}
+
+<section>
+    <table border="1">
+        <tr>
+            <th>댓글</th>
+            <th>유저이름</th>
+            <th>게시글제목</th>
+            <th>작성날짜</th>
+        </tr>
+
+        {{#commentList}}
+        <tr>
+            <td>{{comment}}</td>
+            <td>{{username}}</td>
+            <td>{{boardTitle}}</td>
+            <td>{{createdAt}}</td>
+        </tr>
+        {{/commentList}}
+    </table>
+</section>
+
+</body>
+</html>
