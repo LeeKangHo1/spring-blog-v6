@@ -18,7 +18,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
-    private final HttpSession session; // 싱글톤 객체라 편의르르 위해 IoC 컨테이너에 있다.
+    private final HttpSession session; // 싱글톤 객체라 편의를 위해 IoC 컨테이너에 있다.
 
     // 메인화면 이동
     @GetMapping("/")
