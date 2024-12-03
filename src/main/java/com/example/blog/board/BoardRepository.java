@@ -25,7 +25,7 @@ public class BoardRepository {
         return Optional.ofNullable(em.find(Board.class, id));
     }
 
-    // 유저까지 조회해서 1번에 보드, 유저 검색하기
+    // Board의 User와 Reply 모두 1번에 조회
     public Optional<Board> findByIdJoinUser(int id) {
         // jpql은 객체 지향 쿼리 언어
         String sql = """
