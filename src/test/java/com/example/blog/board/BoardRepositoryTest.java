@@ -23,9 +23,16 @@ public class BoardRepositoryTest {
     }
 
     @Test
+    public void fintByIdJoinUserAndReply_test() {
+        int id = 1;
+
+        boardRepository.findByIdJoinUserAndReply(id);
+    }
+
+    @Test
     public void findById_test() {
         // given
-        Integer id = 1;
+        Integer id = 4;
 
         // when
         Optional<Board> boardOP = boardRepository.findById(id);

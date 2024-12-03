@@ -42,6 +42,23 @@ public class BoardRepository {
         }
     }
 
+    // 유저까지 조회해서 1번에 보드, 유저 검색하기
+    public Optional<Board> findByIdJoinUserAndReply(int id) {
+        // jpql은 객체 지향 쿼리 언어                      left 걸면 오른쪽은 left 다 붙여야 한다.
+        String sql = """
+                select b from Board b join fetch b.user left join fetch b.replies r left join fetch r.user where b.id = :id
+                """;
+        Query q = em.createQuery(sql, Board.class);
+        q.setParameter("id", id);
+
+        try {
+            Board board = (Board) q.getSingleResult();
+            return Optional.ofNullable(board);
+        } catch (RuntimeException e) {
+            return Optional.ofNullable(null);
+        }
+    }
+
     public void delete(int id) {
         em.createQuery("delete from Board b where id = :id")
                 .setParameter("id", id)

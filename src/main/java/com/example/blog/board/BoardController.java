@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,6 +37,7 @@ public class BoardController {
 
         BoardResponse.DetailDTO boardDetail = boardService.게시글상세보기(id, sessionUser);
         model.addAttribute("model", boardDetail);
+
         return "board/detail";
     }
 

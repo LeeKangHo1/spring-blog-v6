@@ -1,11 +1,14 @@
 package com.example.blog.board;
 
+import com.example.blog.reply.Reply;
 import com.example.blog.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -21,6 +24,9 @@ public class Board {
     // private Integer userId; // 여기선 카멜, db에선 user_id로 들어간다. 외래키
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // fk(외래키 필드)의 변수이름이 뭐야?
+    private List<Reply> replies = new ArrayList<>(); // 테이블에 영향을 주지 않고 게시글 조회할 때만 조회, new는 안해도 알아서 만들어 준다, 생성자에 포함되지 않는 필드
 
     @CreationTimestamp
     private Timestamp createdAt;

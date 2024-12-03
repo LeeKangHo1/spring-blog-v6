@@ -1,8 +1,12 @@
 package com.example.blog.board;
 
 import com.example.blog._core.util.MyDate;
+import com.example.blog.reply.Reply;
 import com.example.blog.user.User;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BoardResponse {
 
@@ -32,16 +36,36 @@ public class BoardResponse {
         private String username;
         private boolean isOwner = false;
 
+        private List<ReplyDTO> replies;
+
+        // private 생략 가능
+        @Data
+        class ReplyDTO {
+            private int id;
+            private String comment;
+            private int userId; // UserDTO 만들고 User를 필드로 해도 되지만 너무 복잡해진다.
+            private String username;
+
+            public ReplyDTO(Reply reply) {
+                this.id = reply.getId();
+                this.comment = reply.getComment();
+                this.userId = reply.getUser().getId();
+                this.username = reply.getUser().getUsername();
+            }
+        }
+
         public DetailDTO(Board board, User sessionUser) {
             this.id = board.getId();
             this.title = board.getTitle();
             this.content = board.getContent();
             this.createdAt = MyDate.formatToStr(board.getCreatedAt());
+
             this.userId = board.getUser().getId();
             this.username = board.getUser().getUsername();
             if (sessionUser != null) {
                 this.isOwner = sessionUser.getUsername().equals(board.getUser().getUsername());
             }
+            this.replies = board.getReplies().stream().map(r -> new ReplyDTO(r)).toList();
         }
     }
 
