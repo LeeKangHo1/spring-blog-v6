@@ -1,5 +1,6 @@
 package com.example.blog.board;
 
+import com.example.blog._core.error.ex.Exception403;
 import com.example.blog._core.error.ex.Exception404;
 import com.example.blog.user.User;
 import lombok.RequiredArgsConstructor;
@@ -41,9 +42,16 @@ public class BoardService {
     }
 
     @Transactional
-    public void 게시글삭제(int id) {
+    public void 게시글삭제(int id, User sessionUser) {
+        Board boardPS = boardRepository.findById(id)
+                .orElseThrow(() -> new Exception404("게시글 아이디를 찾을 수 없습니다."));
+
+        if (!sessionUser.getId().equals(boardPS.getUser().getId())) {
+            throw new Exception403("권한이 없습니다.");
+        }
+
         boardRepository.delete(id);
-    } // commit or rollback 이 됨.
+    }
 
     @Transactional
     public void 게시글수정하기(int id, BoardRequest.UpdateDTO updateDTO) {

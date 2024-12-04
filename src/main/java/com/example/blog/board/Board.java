@@ -25,7 +25,7 @@ public class Board {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY) // fk(외래키 필드)의 변수이름이 뭐야?
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Reply> replies; // 생성자에 포함되지 않는 필드
 
     @CreationTimestamp

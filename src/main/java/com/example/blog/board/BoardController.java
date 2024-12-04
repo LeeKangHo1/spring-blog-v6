@@ -72,7 +72,8 @@ public class BoardController {
     // 글 삭제
     @PostMapping("/board/{id}/delete")
     public String delete(@PathVariable("id") int id) {
-        boardService.게시글삭제(id);
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        boardService.게시글삭제(id, sessionUser);
         return "redirect:/";
     }
 }

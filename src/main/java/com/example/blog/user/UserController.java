@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class UserController {
     private final UserService userService;
+    private final HttpSession session;
 
     // 로그인 폼으로 이동
     @GetMapping("/login-form")
@@ -29,9 +30,9 @@ public class UserController {
     }
 
     // 로그아웃
-    @GetMapping("logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
+//        session.removeAttribute("sessionUser");
         session.invalidate();
         return "redirect:/";
     }

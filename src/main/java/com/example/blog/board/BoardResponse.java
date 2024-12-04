@@ -45,12 +45,16 @@ public class BoardResponse {
             private String comment;
             private int userId; // UserDTO 만들고 User를 필드로 해도 되지만 너무 복잡해진다.
             private String username;
+            private boolean isOwner = false; // 이너클래스라 isOwner 이름 같아도 된다.
 
-            public ReplyDTO(Reply reply) {
+            public ReplyDTO(Reply reply, User sessionUser) {
                 this.id = reply.getId();
                 this.comment = reply.getComment();
                 this.userId = reply.getUser().getId();
                 this.username = reply.getUser().getUsername();
+                if (sessionUser != null) {
+                    this.isOwner = sessionUser.getId().equals(reply.getUser().getId());
+                }
             }
         }
 
@@ -65,7 +69,7 @@ public class BoardResponse {
             if (sessionUser != null) {
                 this.isOwner = sessionUser.getUsername().equals(board.getUser().getUsername());
             }
-            this.replies = board.getReplies().stream().map(r -> new ReplyDTO(r)).toList();
+            this.replies = board.getReplies().stream().map(r -> new ReplyDTO(r, sessionUser)).toList();
         }
     }
 
